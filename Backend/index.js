@@ -31,6 +31,7 @@ import careerRoutes from './routes/career.routes.js';
 import replayRoutes from './routes/replay.routes.js';
 import attackPlanRoutes from './routes/attackPlan.routes.js';
 import { dbConnect } from "./config/db.js";
+import logger from "./utils/logger.js";
 import { apiLimiter } from "./middlewares/rateLimiter.js";
 import errorHandler from "./middlewares/error.middleware.js";
 import fileUpload from "express-fileupload";

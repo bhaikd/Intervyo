@@ -1,71 +1,73 @@
-// frontend/src/api/chatbot.api.js
-import axios from "axios";
+import { apiConnector } from "../apiConnector";
+import { BASE_URL } from "../apis";
 
-const API_URL =
-  import.meta.env.VITE_API_URL || "https://intervyo.onrender.com/api";
+const CHATBOT_BASE_URL = `${BASE_URL}/chatbot`;
 
-const chatbotAPI = axios.create({
-  baseURL: `${API_URL}/chatbot`,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-// Add auth token to requests
-chatbotAPI.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
+// Helper to get token
+const getToken = () => localStorage.getItem("token");
 
 // Conversation management
 export const createConversation = async (data) => {
-  const response = await chatbotAPI.post("/conversations", data);
+  const token = getToken();
+  const response = await apiConnector("POST", `${CHATBOT_BASE_URL}/conversations`, data, {
+    Authorization: `Bearer ${token}`,
+  });
   return response.data;
 };
 
 export const getUserConversations = async (params) => {
-  const response = await chatbotAPI.get("/conversations", { params });
+  const token = getToken();
+  const response = await apiConnector("GET", `${CHATBOT_BASE_URL}/conversations`, null, {
+    Authorization: `Bearer ${token}`,
+  }, params);
   return response.data;
 };
 
 export const getConversation = async (sessionId) => {
-  const response = await chatbotAPI.get(`/conversations/${sessionId}`);
+  const token = getToken();
+  const response = await apiConnector("GET", `${CHATBOT_BASE_URL}/conversations/${sessionId}`, null, {
+    Authorization: `Bearer ${token}`,
+  });
   return response.data;
 };
 
 export const updateConversation = async (sessionId, data) => {
-  const response = await chatbotAPI.patch(`/conversations/${sessionId}`, data);
+  const token = getToken();
+  const response = await apiConnector("PATCH", `${CHATBOT_BASE_URL}/conversations/${sessionId}`, data, {
+    Authorization: `Bearer ${token}`,
+  });
   return response.data;
 };
 
 export const deleteConversation = async (sessionId) => {
-  const response = await chatbotAPI.delete(`/conversations/${sessionId}`);
+  const token = getToken();
+  const response = await apiConnector("DELETE", `${CHATBOT_BASE_URL}/conversations/${sessionId}`, null, {
+    Authorization: `Bearer ${token}`,
+  });
   return response.data;
 };
 
 export const clearMessages = async (sessionId) => {
-  const response = await chatbotAPI.delete(
-    `/conversations/${sessionId}/messages`,
-  );
+  const token = getToken();
+  const response = await apiConnector("DELETE", `${CHATBOT_BASE_URL}/conversations/${sessionId}/messages`, null, {
+    Authorization: `Bearer ${token}`,
+  });
   return response.data;
 };
 
 // Message handling
 export const sendMessage = async (sessionId, message, context) => {
-  const response = await chatbotAPI.post(
-    `/conversations/${sessionId}/messages`,
+  const token = getToken();
+  const response = await apiConnector(
+    "POST",
+    `${CHATBOT_BASE_URL}/conversations/${sessionId}/messages`,
     {
       message,
       context,
     },
+    {
+      Authorization: `Bearer ${token}`,
+    },
   );
   return response.data;
 };
-
-export default chatbotAPI;

@@ -1,5 +1,5 @@
-// const BASE_URL = "http://localhost:5000/api";
-const BASE_URL = 'https://intervyo.onrender.com/api';
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL || "https://intervyo.onrender.com";
+export const BASE_URL = VITE_BASE_URL + "/api";
 
 export const authEndpoints = {
   SEND_OTP_API: `${BASE_URL}/auth/send-otp`,

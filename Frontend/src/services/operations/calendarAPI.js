@@ -1,6 +1,5 @@
 import { apiConnector } from "../apiConnector";
-
-const BASE_URL = `${import.meta.env.VITE_BASE_URL}/api` || "http://localhost:5000/api";
+import { BASE_URL } from "../apis";
 
 // Calendar API endpoints
 export const CALENDAR_ENDPOINTS = {

@@ -8,6 +8,7 @@ import passport from "./config/Passport.js";
 import authRoutes from "./routes/User.route.js";
 
 import interviewRoutes from "./routes/InterviewRoutes.js";
+import interviewRoute from "./routes/interview.route.js";
 import learningHubRoutes from "./routes/learningHub.routes.js";
 import aiRoutes from "./routes/aiRoutes.js";
 import dashboardRoutes from "./routes/Dashboard.route.js";
@@ -108,6 +109,7 @@ dbConnect();
 app.use('/api/contact', contactRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/interviews", interviewRoutes);
+app.use("/api/interview", interviewRoute);
 app.use("/api/ai", aiRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/dashboard", dashboardRoutes);
@@ -190,7 +192,7 @@ if (process.env.NODE_ENV !== "test") {
 // ========================================
 const gracefulShutdown = async (signal) => {
   logger.warn(`${signal} received. Starting graceful shutdown...`);
-  
+
   try {
     // Close server to stop accepting new connections
     server.close(() => {

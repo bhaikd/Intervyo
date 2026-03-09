@@ -1,7 +1,6 @@
 import { apiConnector } from "../apiConnector";
 import { toast } from "react-hot-toast";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
+import { BASE_URL } from "../apis";
 
 // Get all notifications
 export const getNotifications = async (token, params = {}) => {
@@ -14,7 +13,7 @@ export const getNotifications = async (token, params = {}) => {
 
     const response = await apiConnector(
       "GET",
-      `${BASE_URL}/api/notifications?limit=${limit}&skip=${skip}&unreadOnly=${unreadOnly}`,
+      `${BASE_URL}/notifications?limit=${limit}&skip=${skip}&unreadOnly=${unreadOnly}`,
       null,
       { Authorization: `Bearer ${token}` },
     );
@@ -51,7 +50,7 @@ export const getUnreadCount = async (token) => {
 
     const response = await apiConnector(
       "GET",
-      `${BASE_URL}/api/notifications/unread-count`,
+      `${BASE_URL}/notifications/unread-count`,
       null,
       {
         Authorization: `Bearer ${token}`,

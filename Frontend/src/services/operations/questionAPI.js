@@ -1,6 +1,5 @@
 import { apiConnector } from "../apiConnector";
-
-const BASE_URL = `${import.meta.env.VITE_BASE_URL}/api` || "http://localhost:5000/api";
+import { BASE_URL } from "../apis";
 
 // Question Database API endpoints
 export const QUESTION_ENDPOINTS = {

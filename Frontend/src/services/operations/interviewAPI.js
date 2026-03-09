@@ -1,7 +1,7 @@
 // src/services/operations/interviewAPI.js
 import { toast } from "react-hot-toast";
 
-import { interviewEndpoints } from "../apis";
+import { interviewEndpoints, BASE_URL } from "../apis";
 import {
   setCurrentInterview,
   setInterviewData,
@@ -26,8 +26,6 @@ const {
   GET_INTERVIEW_API,
   START_CONVERSATION_API,
 } = interviewEndpoints;
-
-const BASE_URL = "https://intervyo.onrender.com";
 // export const createInterview = (interviewConfig, navigate,token) => {
 //   return async (dispatch) => {
 //     const toastId = toast.loading('Creating your interview...');
@@ -312,7 +310,7 @@ export const getRealTimeAIResponse = async (interviewId, data, token) => {
   try {
     const response = await apiConnector(
       "POST",
-      `${BASE_URL}/api/interview/${interviewId}/real-time-response`,
+      `${BASE_URL}/interview/${interviewId}/real-time-response`,
       data,
       {
         Authorization: `Bearer ${token}`,
@@ -329,7 +327,7 @@ export const evaluateCodeSubmission = async (interviewId, data, token) => {
   try {
     const response = await apiConnector(
       "POST",
-      `${BASE_URL}/api/interview/${interviewId}/evaluate-code`,
+      `${BASE_URL}/interview/${interviewId}/evaluate-code`,
       data,
       {
         Authorization: `Bearer ${token}`,
@@ -365,7 +363,7 @@ export const askNextQuestion = async (interviewId, token) => {
   try {
     const response = await apiConnector(
       "POST",
-      `${BASE_URL}/api/interview/${interviewId}/ask-next-question`,
+      `${BASE_URL}/interview/${interviewId}/ask-next-question`,
       {},
       {
         Authorization: `Bearer ${token}`,
@@ -382,7 +380,7 @@ export const submitAnswer = async (interviewId, answerData, token) => {
   try {
     const response = await apiConnector(
       "POST",
-      `${BASE_URL}/api/interview/${interviewId}/submit-answer`,
+      `${BASE_URL}/interview/${interviewId}/submit-answer`,
       answerData,
       {
         Authorization: `Bearer ${token}`,

@@ -1,9 +1,10 @@
 import { toast } from "react-hot-toast";
 import { apiConnector } from "../apiConnector";
 import { setUser, setLoading } from "../../slices/profileSlice";
+import { BASE_URL } from "../apis";
+
 const LearningHubEndpoints = {
-  GET_LEARNING_PROGRESS:
-    "https://intervyo.onrender.com/api/learning-hub/my-learning",
+  GET_LEARNING_PROGRESS: `${BASE_URL}/learning-hub/my-learning`,
 };
 
 export const getLearningProgress = async (token) => {

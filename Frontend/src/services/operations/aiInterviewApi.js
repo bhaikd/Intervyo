@@ -1,23 +1,23 @@
 import { toast } from "react-hot-toast";
 import { apiConnector } from "../apiConnector";
-import { interviewEndpoints } from "../apis";
+import { interviewEndpoints, BASE_URL } from "../apis";
 
 const INTERVIEW_ENDPOINTS = {
-  CREATE_INTERVIEW: "https://intervyo.onrender.com/api/interviews/create",
-  GET_ALL_INTERVIEWS: "https://intervyo.onrender.com/api/interviews/all",
-  GET_INTERVIEW: "https://intervyo.onrender.com/api/interviews",
-  START_INTERVIEW: "https://intervyo.onrender.com/api/interviews",
-  END_INTERVIEW: "https://intervyo.onrender.com/api/interviews",
-  GET_SESSION: "https://intervyo.onrender.com/api/interviews",
-  DELETE_INTERVIEW: "https://intervyo.onrender.com/api/interviews",
+  CREATE_INTERVIEW: `${BASE_URL}/interviews/create`,
+  GET_ALL_INTERVIEWS: `${BASE_URL}/interviews/all`,
+  GET_INTERVIEW: `${BASE_URL}/interviews`,
+  START_INTERVIEW: `${BASE_URL}/interviews`,
+  END_INTERVIEW: `${BASE_URL}/interviews`,
+  GET_SESSION: `${BASE_URL}/interviews`,
+  DELETE_INTERVIEW: `${BASE_URL}/interviews`,
 };
 const { GET_RESULTS_API } = interviewEndpoints;
 
 const AI_ENDPOINTS = {
-  GENERATE_QUESTIONS: "https://intervyo.onrender.com/api/ai/generate-questions",
-  EVALUATE_ANSWER: "https://intervyo.onrender.com/api/ai/evaluate-answer",
-  NEXT_QUESTION: "https://intervyo.onrender.com/api/ai/next-question",
-  COMPLETE_INTERVIEW: "https://intervyo.onrender.com/api/ai/complete-interview",
+  GENERATE_QUESTIONS: `${BASE_URL}/ai/generate-questions`,
+  EVALUATE_ANSWER: `${BASE_URL}/ai/evaluate-answer`,
+  NEXT_QUESTION: `${BASE_URL}/ai/next-question`,
+  COMPLETE_INTERVIEW: `${BASE_URL}/ai/complete-interview`,
 };
 
 // Create new interview

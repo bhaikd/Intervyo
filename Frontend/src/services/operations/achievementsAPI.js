@@ -1,21 +1,20 @@
-// services/achievementService.js
-
-const API_BASE_URL = "https://intervyo.onrender.com/api";
+import { apiConnector } from "../apiConnector";
+import { BASE_URL } from "../apis";
 
 export const achievementService = {
   // Check for new achievements
   checkAchievements: async (token) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/achievements/check`, {
-        method: "POST",
-        headers: {
+      const response = await apiConnector(
+        "POST",
+        `${BASE_URL}/achievements/check`,
+        null,
+        {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
-      });
+      );
 
-      const data = await response.json();
-      return data;
+      return response.data;
     } catch (error) {
       console.error("Error checking achievements:", error);
       return { success: false, data: { newAchievements: [] } };
@@ -25,14 +24,16 @@ export const achievementService = {
   // Get all achievements
   getAllAchievements: async (token) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/achievements/all`, {
-        headers: {
+      const response = await apiConnector(
+        "GET",
+        `${BASE_URL}/achievements/all`,
+        null,
+        {
           Authorization: `Bearer ${token}`,
         },
-      });
+      );
 
-      const data = await response.json();
-      return data;
+      return response.data;
     } catch (error) {
       console.error("Error fetching achievements:", error);
       return { success: false, data: { all: [], grouped: {} } };
@@ -42,19 +43,16 @@ export const achievementService = {
   // Mark achievement as notified
   markAsNotified: async (achievementId, token) => {
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/achievements/mark-notified/${achievementId}`,
+      const response = await apiConnector(
+        "POST",
+        `${BASE_URL}/achievements/mark-notified/${achievementId}`,
+        null,
         {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+          Authorization: `Bearer ${token}`,
         },
       );
 
-      const data = await response.json();
-      return data;
+      return response.data;
     } catch (error) {
       console.error("Error marking achievement as notified:", error);
       return { success: false };
@@ -64,16 +62,16 @@ export const achievementService = {
   // Initialize achievements (run once)
   initializeAchievements: async (token) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/achievements/initialize`, {
-        method: "POST",
-        headers: {
+      const response = await apiConnector(
+        "POST",
+        `${BASE_URL}/achievements/initialize`,
+        null,
+        {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
-      });
+      );
 
-      const data = await response.json();
-      return data;
+      return response.data;
     } catch (error) {
       console.error("Error initializing achievements:", error);
       return { success: false };

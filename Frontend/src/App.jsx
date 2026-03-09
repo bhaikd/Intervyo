@@ -38,6 +38,7 @@ import CookiePolicy from "./pages/CookiePolicy";
 import ScrollToTopOnRouteChange from "./components/shared/ScrollToTopOnRouteChange";
 import Navbar from "./components/Navbar";
 import { useEffect } from "react";
+import Lenis from "@studio-freight/lenis";
 
 function App() {
   const location = useLocation();
@@ -45,52 +46,52 @@ function App() {
   const hideFooterRoutes = ["/login", "/register"];
   const hideFooter = hideFooterRoutes.includes(location.pathname);
 
+  const hideNavbarRoutes = ["/dashboard", "/settings", "/pricing", "/career", "/terms", "/privacy", "/cookie-policy", "/interview-setup", "/auth/callback"];
+  const hideNavbar =
+    hideNavbarRoutes.includes(location.pathname) ||
+    location.pathname.startsWith("/interview-room");
+
+  // Initialize smooth scrolling with Lenis
   useEffect(() => {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js");
-  }
-}, []);
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: "vertical",
+      gestureDirection: "vertical",
+      smooth: true,
+      smoothTouch: false,
+      touchMultiplier: 2,
+    });
+
+    let rafId;
+
+    function raf(time) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js");
+    }
+  }, []);
 
   return (
     <>
-      {/* 🔥 Smooth Scroll Behavior */}
-      <style>
-        {`
-          html {
-            scroll-behavior: smooth;
-          }
-
-          /* ===== Modern Glass Scrollbar ===== */
-          ::-webkit-scrollbar {
-            width: 10px;
-          }
-
-          ::-webkit-scrollbar-track {
-            background: transparent;
-          }
-
-          ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.35);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 2px solid rgba(255,255,255,0.2);
-          }
-
-          ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.6);
-          }
-
-          /* Firefox */
-          * {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255,255,255,0.4) transparent;
-          }
-        `}
-      </style>
 
       <ScrollToTop />
       <ScrollToTopOnRouteChange />
-      <Navbar />
+      {!hideNavbar && <Navbar />}
 
       <Routes>
         <Route path="/" element={<Landing />} />

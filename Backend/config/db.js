@@ -5,13 +5,11 @@ dotenv.config();
 
 export const dbConnect = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    console.log("DB connected successfully.");
+    await mongoose.connect(process.env.MONGODB_URL);
+    console.log("✅ Connected to MongoDB");
   } catch (error) {
-    console.error("DB connection failed! Error:", error.message);
-    // Don't process.exit(1) — safe for serverless platforms
+    console.error("❌ Connection Failed");
+    console.error(error);
+    // Don't process.exit(1) — safe for serverless platforms like Render
   }
 };

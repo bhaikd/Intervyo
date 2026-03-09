@@ -148,7 +148,7 @@ export default function Register() {
       </div>
 
       {/* CENTERED REGISTER CARD */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen p-4 pointer-events-none">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4 pt-32 pb-12 pointer-events-none">
         <div
           className="pointer-events-auto w-full max-w-md rounded-2xl border border-white/10
           bg-gradient-to-br from-zinc-900/90 to-zinc-800/80

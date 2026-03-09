@@ -64,9 +64,9 @@ export default function DomainSelection() {
         <div className="w-[450px] h-[450px] rounded-full bg-emerald-500 blur-[100px] opacity-20" />
       </div>
 
-      <div className="relative z-10 flex items-center justify-center min-h-screen p-4 pointer-events-none">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4 pt-32 pb-12 pointer-events-none">
         <div className="pointer-events-auto w-full max-w-md rounded-2xl border border-white/10 bg-gradient-to-br from-zinc-900/90 to-zinc-800/80 backdrop-blur-xl shadow-[0_0_60px_rgba(16,185,129,0.15)] p-8">
-          
+
           {/* Progress Bar */}
           <div className="mb-8">
             <div className="flex justify-between items-center mb-2">
@@ -74,7 +74,7 @@ export default function DomainSelection() {
               <span className="text-sm text-emerald-400 font-bold">100%</span>
             </div>
             <div className="w-full bg-zinc-800/50 rounded-full h-2">
-              <div 
+              <div
                 className="bg-gradient-to-r from-emerald-500 to-emerald-400 h-2 rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(16,185,129,0.5)]"
                 style={{ width: '100%' }}
               ></div>
@@ -106,11 +106,10 @@ export default function DomainSelection() {
                   setFormData({ ...formData, domain: domain.id });
                   setErrors({ ...errors, domain: "" });
                 }}
-                className={`group p-4 rounded-xl border transition-all duration-300 transform active:scale-95 ${
-                  formData.domain === domain.id
+                className={`group p-4 rounded-xl border transition-all duration-300 transform active:scale-95 ${formData.domain === domain.id
                     ? `bg-gradient-to-br ${domain.color} text-white border-transparent shadow-[0_0_20px_rgba(16,185,129,0.2)]`
                     : 'bg-zinc-900 border-zinc-700 hover:border-emerald-500/50 hover:bg-zinc-800'
-                }`}
+                  }`}
               >
                 <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">{domain.icon}</div>
                 <div className={`font-semibold text-sm ${formData.domain === domain.id ? 'text-white' : 'text-gray-300'}`}>
@@ -153,8 +152,8 @@ export default function DomainSelection() {
               {loading ? (
                 <>
                   <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
                   Processing...
                 </>

@@ -67,11 +67,11 @@ export default function VerifyEmail() {
       </div>
 
       {/* CENTERED VERIFY CARD */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen p-4 pointer-events-none">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4 pt-32 pb-12 pointer-events-none">
         <div className="pointer-events-auto w-full max-w-md rounded-2xl border border-white/10 
           bg-gradient-to-br from-zinc-900/90 to-zinc-800/80 
           backdrop-blur-xl shadow-[0_0_60px_rgba(16,185,129,0.15)] p-8">
-          
+
           {/* Progress Bar */}
           <div className="mb-8">
             <div className="flex justify-between items-center mb-2">
@@ -79,7 +79,7 @@ export default function VerifyEmail() {
               <span className="text-sm text-gray-400">66%</span>
             </div>
             <div className="w-full bg-zinc-800/50 rounded-full h-2">
-              <div 
+              <div
                 className="bg-gradient-to-r from-emerald-500 to-emerald-400 h-2 rounded-full transition-all duration-500"
                 style={{ width: '66%' }}
               ></div>

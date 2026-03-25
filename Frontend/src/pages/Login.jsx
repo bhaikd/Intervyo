@@ -1,9 +1,10 @@
-
 import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../services/operations/authAPI';
 import SEO from '../components/SEO';
+import { authEndpoints } from '../services/apis';
+
 const PASSWORD_REQUIREMENTS = [
   { id: 'length', label: '8+ Characters', test: (p) => p.length >= 8 },
   { id: 'uppercase', label: 'Upper Case', test: (p) => /[A-Z]/.test(p) },
@@ -12,12 +13,13 @@ const PASSWORD_REQUIREMENTS = [
 ];
 
 const getStrength = (password) => PASSWORD_REQUIREMENTS.filter(req => req.test(password)).length;
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // Added state for password visibility
+  const { loading } = useSelector((state) => state.auth);
+  const [showPassword, setShowPassword] = useState(false);
   const passwordInputRef = useRef(null);
 
   const handleKeyDown = (e) => {
@@ -32,16 +34,23 @@ export default function Login() {
 
   const handleEmailLogin = (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      setError("Please fill in all fields");
+      return;
+    }
     setError("");
     dispatch(login(email, password, navigate));
   };
 
+  // Dynamically derive social login URLs from our API config
   const handleGoogleLogin = () => {
-    window.location.href = "https://intervyo.onrender.com/api/auth/google";
+    const googleLoginUrl = authEndpoints.LOGIN_API.replace('/login', '/google');
+    window.location.href = googleLoginUrl;
   };
 
   const handleGitHubLogin = () => {
-    window.location.href = "https://intervyo.onrender.com/api/auth/github";
+    const githubLoginUrl = authEndpoints.LOGIN_API.replace('/login', '/github');
+    window.location.href = githubLoginUrl;
   };
 
   return (
@@ -159,7 +168,7 @@ export default function Login() {
             </div>
             <button
               onClick={handleEmailLogin}
-              // Disable if loading OR if strength is less than 2 (out of 4)
+              // Disable if loading
               disabled={loading || !email || !password}
               className="relative w-full overflow-hidden rounded-lg bg-emerald-500 py-3 font-semibold text-black
               transition-all duration-300

@@ -10,6 +10,10 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
+    if (error.code === 'ERR_NETWORK') {
+      console.error("Network Error: The server appears to be offline or unreachable. Check if your backend is running on the correct port.");
+    }
+
     if (error.response && error.response.status === 401) {
       // Clear local storage and redirect to login on 401
       localStorage.removeItem("token");

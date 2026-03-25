@@ -167,7 +167,6 @@ app.get("/api/health", async (req, res) => {
 // ========================================
 // ERROR HANDLER
 // ========================================
-import logger from "./utils/logger.js";
 
 app.use((err, req, res, next) => {
   logger.error("Server Error:", err);

@@ -108,14 +108,17 @@ export function signup(
 // Login
 export function login(email, password, navigate) {
   return async (dispatch) => {
+    // If the token is already in Redux (not just localStorage), consider them logged in
+    // But since this is the login page, we might want to allow them to re-log if needed.
+    // For now, let's keep the existing check but make it clearer.
     const existingToken = localStorage.getItem("token");
     if (existingToken) {
-      customToast.error("You are already logged in");
-      navigate("/dashboard");
-      return;
+       // Optional: Navigate to dashboard if already authenticated
+       // navigate("/dashboard");
+       // return;
     }
 
-    const toastId = customToast.loading("Logging in...");
+    const toastId = customToast.loading("Verifying credentials...");
     dispatch(setLoading(true));
 
     try {
@@ -125,7 +128,7 @@ export function login(email, password, navigate) {
       });
 
       if (!response.data.success) {
-        throw new Error(response.data.message);
+        throw new Error(response.data.message || "Invalid credentials");
       }
 
       const { token, user } = response.data;
@@ -136,11 +139,20 @@ export function login(email, password, navigate) {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      customToast.success("Login successful!");
+      customToast.success("Welcome back, " + (user.name.split(' ')[0]) + "!");
       navigate("/dashboard");
     } catch (error) {
       console.error("Login Error:", error);
-      customToast.error(error.response?.data?.message || "Login failed");
+      
+      let errorMessage = "Login failed. Please try again.";
+      
+      if (error.code === 'ERR_NETWORK' || error.message.includes('Network Error')) {
+        errorMessage = "Server is unreachable. If the backend was sleeping (Render cold start), it might take 30-60 seconds to wake up. Please wait a moment and try again.";
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      }
+
+      customToast.error(errorMessage);
     } finally {
       dispatch(setLoading(false));
       toast.dismiss(toastId);

@@ -5,6 +5,7 @@ import otpGenerator from "otp-generator";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import { authLogger } from "../utils/logger.js";
 dotenv.config();
 
 // Send OTP
@@ -327,57 +328,74 @@ export const login = async (req, res) => {
     // Find user and populate profile
     const user = await User.findOne({ email })
       .select("+password") 
-      
       .populate({
         path: "profile",
         select: "-__v",
       });
 
     if (!user) {
+      authLogger.warn("Login Failed: User not found", { email });
       return res.status(401).json({
         success: false,
         message: "Invalid email or password",
       });
     }
 
-    if (user.authProvider !== "local") {
-      return res.status(400).json({
+    // Check if user is verified
+    if (!user.isVerified) {
+      authLogger.warn("Login Failed: Email not verified", { email });
+      return res.status(403).json({
         success: false,
-        message: `Please login with ${user.authProvider}`,
+        message: "Please verify your email first",
       });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (user.authProvider !== "local") {
+      authLogger.warn("Login Failed: Social account attempt", { 
+        email, 
+        provider: user.authProvider 
+      });
+      return res.status(400).json({
+        success: false,
+        message: `This account is linked with ${user.authProvider}. Please use ${user.authProvider} login.`,
+      });
+    }
+
+    const isPasswordValid = await user.comparePassword(password);
 
     if (!isPasswordValid) {
+      authLogger.warn("Login Failed: Password incorrect", { email });
       return res.status(401).json({
         success: false,
-        message: "Password incorrect",
+        message: "Invalid email or password",
       });
     }
 
     const token = user.generateAuthToken();
 
-    // Return user without password
+    // Prepare user response
     const userResponse = user.toObject();
     delete userResponse.password;
     delete userResponse.resetPasswordToken;
     delete userResponse.resetPasswordExpire;
 
-    logger.debug("User logged in:", { userId: userResponse._id, email: userResponse.email });
+    authLogger.info("Login Successful", { 
+      userId: userResponse._id, 
+      email: userResponse.email 
+    });
 
-    res.json({
+    res.status(200).json({
       success: true,
-      message: "Login successful",
+      message: "Welcome back!",
       token,
       user: userResponse,
     });
   } catch (error) {
-    console.error("Login Error:", error);
+    authLogger.error("Login Controller Error", error);
     res.status(500).json({
       success: false,
-      message: "Login failed",
-      error: error.message,
+      message: "An internal server error occurred during login",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined,
     });
   }
 };

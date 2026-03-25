@@ -3,11 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 
-console.log(process.env.RESEND_API_KEY);
-console.log("MAIL_HOST:", process.env.MAIL_HOST);
-console.log("MAIL_PORT:", process.env.MAIL_PORT);
-console.log("MAIL_USER:", process.env.MAIL_USER);
-console.log("MAIL_PASS exists?:", !!process.env.MAIL_PASS);
+// Environment configuration is handled by dotenv.config()
 
 
 

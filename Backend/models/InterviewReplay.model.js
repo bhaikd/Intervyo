@@ -200,8 +200,6 @@ const interviewReplaySchema = new mongoose.Schema(
 
 // Indexes for performance
 interviewReplaySchema.index({ userId: 1, createdAt: -1 });
-interviewReplaySchema.index({ interviewId: 1 });
-interviewReplaySchema.index({ shareToken: 1 });
 interviewReplaySchema.index({ "notes.category": 1 });
 interviewReplaySchema.index({ "notes.tags": 1 });
 

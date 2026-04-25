@@ -81,7 +81,12 @@ export default function BlogPlatform() {
       const data = await response.json();
 
       if (data.success) {
-        setBlogs(data.blogs);
+        // Merge seed articles with API blogs, avoiding duplicates by slug or ID
+        const apiSlugs = new Set(data.blogs.map(b => b.slug));
+        const apiIds = new Set(data.blogs.map(b => b._id));
+        const uniqueSeeds = SEED_ARTICLES.filter(s => !apiSlugs.has(s.slug) && !apiIds.has(s._id));
+        
+        setBlogs([...uniqueSeeds, ...data.blogs]);
         setTotalPages(data.pagination.pages);
       } else {
         setBlogs(SEED_ARTICLES); // Fallback if success is false
@@ -100,7 +105,9 @@ export default function BlogPlatform() {
       const response = await fetch(`${API_URL}/blogs/featured`);
       const data = await response.json();
       if (data.success) {
-        setFeaturedBlogs(data.blogs);
+        const apiSlugs = new Set(data.blogs.map(b => b.slug));
+        const featuredSeeds = SEED_ARTICLES.filter(b => b.featured && !apiSlugs.has(b.slug));
+        setFeaturedBlogs([...featuredSeeds, ...data.blogs]);
       } else {
         setFeaturedBlogs(SEED_ARTICLES.filter(b => b.featured));
       }

@@ -9,14 +9,23 @@
         },
         {
           "key": "Cache-Control",
-          "value": "no-store"
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain"
         }
       ]
     }
   ],
   "rewrites": [
     {
-      "source": "/((?!sitemap.xml|robots.txt|favicon.ico|logo.png|manifest.json|sw.js|models/.*|assets/.*).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]

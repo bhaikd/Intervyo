@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   Search, Plus, TrendingUp, Clock, Eye, Heart, MessageCircle,
   Tag, User, Calendar, Edit, Trash2, Share2, Bookmark, Filter,
@@ -36,7 +37,9 @@ const BlogSkeleton = () => (
 // MAIN BLOG PAGE
 // ============================================
 export default function BlogPlatform() {
-  const [currentPage, setCurrentPage] = useState("list");
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(slug ? "detail" : "list");
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [blogs, setBlogs] = useState([]);
   const [featuredBlogs, setFeaturedBlogs] = useState([]);
@@ -59,7 +62,14 @@ export default function BlogPlatform() {
     fetchBlogs();
     fetchFeaturedBlogs();
     fetchPopularTags();
-  }, [searchQuery, selectedTag, sortBy, currentPageNum]);
+    
+    if (slug) {
+      viewBlog(slug);
+    } else {
+      setCurrentPage("list");
+      setSelectedBlog(null);
+    }
+  }, [searchQuery, selectedTag, sortBy, currentPageNum, slug]);
 
   const fetchBlogs = async () => {
     setLoading(true);
@@ -137,6 +147,7 @@ export default function BlogPlatform() {
     if (blog && typeof blog === 'object') {
       setSelectedBlog(blog);
       setCurrentPage("detail");
+      navigate(`/blog/${blog.slug}`);
       return;
     }
 
@@ -193,7 +204,10 @@ export default function BlogPlatform() {
         <BlogDetail
           blog={selectedBlog}
           currentUser={currentUser}
-          onBack={() => setCurrentPage("list")}
+          onBack={() => {
+            setCurrentPage("list");
+            navigate("/blog");
+          }}
           onEdit={() => setCurrentPage("edit")}
         />
       )}

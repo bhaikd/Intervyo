@@ -110,6 +110,7 @@ function App() {
         <Route path="/domain-selection" element={<DomainSelection />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/blog" element={<BlogPlatform />} />
+        <Route path="/blog/:slug" element={<BlogPlatform />} />
 
         <Route
           path="/dashboard"

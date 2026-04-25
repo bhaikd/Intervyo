@@ -7,7 +7,8 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest",
-    "seed:topics": "node scripts/seedTopics.js"
+    "seed:topics": "node scripts/seedTopics.js",
+    "seed:blogs": "node scripts/seedBlogs.js"
   },
   "keywords": [],
   "author": "",

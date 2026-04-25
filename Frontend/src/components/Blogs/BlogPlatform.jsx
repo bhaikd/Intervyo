@@ -5,6 +5,7 @@ import {
   ChevronRight, Sparkles, X, ArrowLeft, Send, MoreVertical, Star
 } from 'lucide-react';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 const API_URL = 'https://intervyo.onrender.com/api';
 // ============================================
 // SEED CONTENT & SKELETON (Add at top)
@@ -49,6 +50,65 @@ const SEED_ARTICLES = [
     publishedAt: new Date().toISOString(),
     tags: ["Career", "Soft Skills"],
     likesCount: 67, views: 1100, readTime: 5, featured: false
+  },
+  {
+    _id: 'seed-5',
+    title: "How to Ace Your First AI Mock Interview: 7 Tips for Success",
+    slug: "ace-your-first-ai-mock-interview",
+    excerpt: "Discover the best strategies to master AI-powered interviews. Learn how Intervyo.xyz can help you land your dream job.",
+    author: { name: "Intervyo Expert", avatar: "IX" },
+    publishedAt: new Date().toISOString(),
+    tags: ["AI Interview", "Career", "Mock Interview"],
+    likesCount: 156, views: 2400, readTime: 7, featured: true,
+    content: `The job market is changing fast. Today, many companies are using artificial intelligence to screen candidates before they ever talk to a human recruiter. Whether it’s a recorded video response or a real-time conversation with a bot, the AI mock interview has become a critical step in the hiring process.
+
+But how do you impress an algorithm? Unlike human recruiters, AI looks for specific patterns in your speech, tone, and body language. If you want to stand out, you need to prepare differently.
+
+In this guide, we’ll walk you through the exact steps to master your first AI mock interview and how tools like Intervyo.xyz can give you the winning edge.
+
+1. Master Your Environment
+Your background and lighting matter more than you think. AI systems often analyze "visual noise." A cluttered background can distract the AI (and the human who eventually reviews the footage).
+Pro Tip: Use a neutral background and ensure your face is well-lit from the front.
+
+2. Perfect Your Body Language
+AI algorithms often track eye contact and facial expressions to gauge confidence and engagement.
+Look at the Camera, Not the Screen: Looking at the camera lens simulates eye contact.
+Smile Naturally: A warm smile at the beginning and end of your answer signals positivity.
+
+3. Focus on Keywords (But Stay Natural)
+Just like an ATS (Applicant Tracking System) scans your resume, AI interviewers listen for relevant keywords.
+Scenario: If you are applying for a Project Manager role, ensure you mention terms like "stakeholder management," "Agile," and "KPIs."
+
+4. Eliminate Verbal Fillers
+"Um," "uh," and "like" can lower your clarity score in an automated assessment. AI is designed to measure communication fluency.
+Actionable Tip: Take a breath before you start speaking. Pausing is better than filling the silence with noise.
+
+5. Be Concise and Structured
+AI interviews often have strict time limits per question (e.g., 2 minutes). If you ramble, you might get cut off before you reach the most important part of your answer.
+Structure: Aim for a 90-second answer.
+
+6. Treat it Like a Real Conversation
+It’s easy to feel robotic when talking to a computer. However, the best results come from candidates who remain personable. Imagine there is a person behind the camera lens.
+
+7. Review and Iterate
+The biggest advantage of an AI mock interview is the ability to watch yourself back. You’ll notice things you didn't realize you were doing—like touching your face or speaking too fast.
+
+Real-World Example: The "Tell Me About Yourself" Question
+Most AI interviews start here. A candidate who simply lists their resume will rank lower than one who tells a compelling story.
+Bad Example: "I've been a developer for 5 years. I know React and Node."
+Good Example: "Over the last 5 years, I've focused on building scalable web applications. My passion for AI led me to develop tools that increase productivity by 30%, much like the innovation happening at Intervyo."
+
+FAQ: Frequently Asked Questions
+What is an AI mock interview?
+An AI mock interview is a practice session where an artificial intelligence system acts as the interviewer. It asks questions, records your responses, and provides data-driven feedback.
+
+How can I practice for an AI interview for free?
+You can start by recording yourself on your phone, but for professional feedback, using a dedicated tool like Intervyo’s interview simulator is better.
+
+Summary: Ready to Level Up?
+Preparing for the future of hiring doesn't have to be scary. With the right tools and mindset, you can turn the AI interview into your secret advantage.
+
+Start practicing today at Intervyo.xyz!`
   }
 ];
 const ReadingProgressBar = () => {
@@ -603,6 +663,13 @@ function BlogDetail({ blog, currentUser, onBack, onEdit }) {
 
   return (
     <div className="min-h-screen py-8 px-6">
+      <Helmet>
+        <title>{blog.title} | Intervyo Blog</title>
+        <meta name="description" content={blog.excerpt || blog.content.substring(0, 160)} />
+        <meta property="og:title" content={blog.title} />
+        <meta property="og:description" content={blog.excerpt || blog.content.substring(0, 160)} />
+        <meta property="og:type" content="article" />
+      </Helmet>
       <div className="max-w-4xl mx-auto">
         {/* Back Button */}
         <button

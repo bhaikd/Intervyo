@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import SEO from "../components/shared/SEO";
 import { Link, useNavigate } from "react-router-dom";
 import { Check, Zap, Users, BarChart, Sparkles, Crown, Building2, ChevronDown } from "lucide-react";
 import Lenis from "@studio-freight/lenis";
@@ -43,6 +44,11 @@ export default function PricingPage() {
 
   return (
     <div className="bg-white text-gray-900 min-h-screen">
+      <SEO 
+        title="Pricing Plans" 
+        description="Choose the perfect plan for your interview success. Start free or upgrade for unlimited AI interviews, advanced analytics, and 50+ tech roles."
+        canonical="/pricing"
+      />
       <Navbar tone="light" />
 
       {/* Hero Section */}

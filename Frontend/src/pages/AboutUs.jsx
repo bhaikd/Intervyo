@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SEO from "../components/shared/SEO";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -190,6 +191,11 @@ export default function AboutUs() {
 
   return (
     <div className="bg-skin-primary text-skin-primary transition-colors duration-300">
+      <SEO 
+        title="About Us" 
+        description="Learn about Intervyo's mission to democratize interview preparation and help job seekers worldwide unlock their full potential with AI."
+        canonical="/about"
+      />
   
       {/* Hero Section */}
       <section className="pt-40 pb-20 px-6 relative overflow-hidden bg-skin-secondary text-skin-primary transition-colors duration-300">

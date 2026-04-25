@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import Lenis from "@studio-freight/lenis";
 import Navbar from "../components/Navbar";
+import SEO from "../components/shared/SEO";
 
 
 // Animation variants
@@ -169,6 +170,11 @@ export default function LandingPage() {
 
   return (
       <div className="bg-skin-primary text-skin-primary transition-colors duration-300">
+      <SEO 
+        title="AI Interview Practice Platform" 
+        description="Master your tech interviews with AI-powered mock interviews, real-time feedback, and personalized coaching on Intervyo."
+        canonical="/"
+      />
       
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 relative overflow-hidden bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 transition-colors duration-500">

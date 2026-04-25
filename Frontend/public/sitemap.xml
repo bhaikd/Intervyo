@@ -1,21 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
     <loc>https://intervyo.xyz/</loc>
+    <lastmod>2024-04-25</lastmod>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://intervyo.xyz/login</loc>
+    <priority>0.8</priority>
   </url>
-
   <url>
-    <loc>https://intervyo.xyz/signup</loc>
+    <loc>https://intervyo.xyz/register</loc>
+    <priority>0.8</priority>
   </url>
-
   <url>
-    <loc>https://intervyo.xyz/features</loc>
+    <loc>https://intervyo.xyz/about</loc>
+    <priority>0.7</priority>
   </url>
-
+  <url>
+    <loc>https://intervyo.xyz/contact</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://intervyo.xyz/faq</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://intervyo.xyz/pricing</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://intervyo.xyz/career</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://intervyo.xyz/blog</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://intervyo.xyz/leaderboard</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://intervyo.xyz/quiz</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://intervyo.xyz/privacy</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://intervyo.xyz/terms</loc>
+    <priority>0.5</priority>
+  </url>
 </urlset>

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SEO from "../components/shared/SEO";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -144,6 +145,11 @@ export default function FAQ() {
 
   return (
     <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-100 via-white to-blue-100 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950 text-skin-primary px-4 sm:px-6 pb-20 transition-all duration-500 overflow-hidden">
+      <SEO 
+        title="Frequently Asked Questions" 
+        description="Find answers to common questions about Intervyo, AI interview feedback, pricing, and how to improve your interview performance."
+        canonical="/faq"
+      />
       {/* Multiple Animated Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-60">
         <motion.div

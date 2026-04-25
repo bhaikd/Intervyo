@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import SEO from "../components/shared/SEO";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
@@ -68,6 +69,11 @@ export default function ContactUs() {
 
   return (
     <div className="bg-skin-primary text-skin-primary min-h-screen flex flex-col transition-colors duration-300">
+      <SEO 
+        title="Contact Us" 
+        description="Have questions or need support with Intervyo? Get in touch with our team for assistance with AI interview practice, pricing, or enterprise solutions."
+        canonical="/contact"
+      />
 
       {/* Hero Section */}
       <section className="pt-40 pb-20 px-6 relative overflow-hidden bg-skin-secondary text-skin-primary transition-colors duration-300">

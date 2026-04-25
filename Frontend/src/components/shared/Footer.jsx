@@ -96,12 +96,12 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-skin-secondary hover:text-emerald-400 transition-colors text-sm">
+                <a href="/faq" className="text-skin-secondary hover:text-emerald-400 transition-colors text-sm">
                   AI Feedback
                 </a>
               </li>
               <li>
-                <a href="#" className="text-skin-secondary hover:text-emerald-400 transition-colors text-sm">
+                <a href="/pricing" className="text-skin-secondary hover:text-emerald-400 transition-colors text-sm">
                   Role Preparation
                 </a>
               </li>
@@ -134,9 +134,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:intervyo.team@example.com" className="text-skin-secondary hover:text-emerald-400 transition-colors text-sm">
+                <Link to="/contact" className="text-skin-secondary hover:text-emerald-400 transition-colors text-sm">
                   Contact
-                </a>
+                </Link>
               </li>
               <li>
                 <a

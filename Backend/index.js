@@ -38,6 +38,7 @@ import fileUpload from "express-fileupload";
 import http from "http";
 import { Server } from "socket.io";
 import cookieParser from "cookie-parser";
+import os from "os";
 
 dotenv.config();
 
@@ -96,7 +97,7 @@ app.use(apiLimiter);
 app.use(
   fileUpload({
     useTempFiles: true,
-    tempFileDir: "/tmp/",
+    tempFileDir: os.tmpdir(),
   }),
 );
 

@@ -31,7 +31,6 @@ export const createInterview = async (formData, setLoading, token) => {
       INTERVIEW_ENDPOINTS.CREATE_INTERVIEW,
       formData,
       {
-        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     );

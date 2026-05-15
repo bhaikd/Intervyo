@@ -130,8 +130,8 @@ export const startInterview = async (req, res) => {
       userId,
       conversation: [
         {
-          speaker: "ai",
-          message: `Hello! Welcome to your ${interview.role} interview. I'm your AI interviewer today. Let's begin with a brief introduction. Could you tell me about yourself and your experience?`,
+          role: "assistant",
+          content: `Hello! Welcome to your ${interview.role} interview. I'm your AI interviewer today. Let's begin with a brief introduction. Could you tell me about yourself and your experience?`,
           type: "greeting",
         },
       ],

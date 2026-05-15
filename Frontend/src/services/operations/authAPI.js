@@ -64,7 +64,7 @@ export function signup(
   email,
   password,
   otp,
-  profilePicure,
+  profilePicture,
   profile,
   navigate,
 ) {
@@ -78,6 +78,7 @@ export function signup(
         email,
         password,
         otp,
+        profilePicture,
         profile,
       });
 

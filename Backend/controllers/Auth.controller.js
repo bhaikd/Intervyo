@@ -215,7 +215,7 @@ export const resendOtp = async (req, res) => {
 // controllers/Auth.controller.js - register function
 export const register = async (req, res) => {
   try {
-    const { name, email, password, otp, profilePicture } = req.body;
+    const { name, email, password, otp, profilePicture, profile: profileData } = req.body;
 
     if (!name || !email || !password || !otp) {
       return res.status(400).json({
@@ -251,14 +251,17 @@ export const register = async (req, res) => {
       });
     }
 
+    // Generate unique avatar if not provided
+    const finalProfilePicture = profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name)}`;
+
     // Step 1: Create user first (but not saved yet)
     const user = new User({
-      name,
+      name: name.trim(),
       email,
       password,
       authProvider: "local",
       isVerified: true,
-      profilePicture,
+      profilePicture: finalProfilePicture,
     });
 
     // Step 2: Create profile and assign user
@@ -269,8 +272,8 @@ export const register = async (req, res) => {
       age: null,
       bio: null,
       location: null,
-      domain: null,
-      experience: null,
+      domain: profileData?.domain || null,
+      experience: profileData?.experience || null,
       skills: [],
       linkedIn: null,
       github: null,

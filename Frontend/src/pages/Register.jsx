@@ -118,12 +118,14 @@ export default function Register() {
     }
   };
 
-  const handleGoogleSignup = () => {
-    window.location.href = "https://intervyo.onrender.com/api/auth/google";
+  const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
+
+  const handleGoogleAuth = () => {
+    window.location.href = `${BASE_URL}/api/auth/google`;
   };
 
-  const handleGitHubSignup = () => {
-    window.location.href = "https://intervyo.onrender.com/api/auth/github";
+  const handleGithubAuth = () => {
+    window.location.href = `${BASE_URL}/api/auth/github`;
   };
 
   return (
@@ -306,7 +308,7 @@ export default function Register() {
 
             <div className="grid grid-cols-2 gap-3">
               <button
-                onClick={handleGoogleSignup}
+                onClick={handleGoogleAuth}
                 className="flex items-center justify-center gap-3 rounded-lg border border-zinc-700
                 bg-zinc-900 py-3 font-semibold text-white
                 hover:border-emerald-500 hover:shadow-[0_0_15px_rgba(16,185,129,0.4)] transition"
@@ -333,7 +335,7 @@ export default function Register() {
               </button>
 
               <button
-                onClick={handleGitHubSignup}
+                onClick={handleGithubAuth}
                 className="flex items-center justify-center gap-3 rounded-lg
                 bg-zinc-800 py-3 font-semibold text-white
                 hover:bg-zinc-700 hover:shadow-[0_0_15px_rgba(16,185,129,0.4)] transition"

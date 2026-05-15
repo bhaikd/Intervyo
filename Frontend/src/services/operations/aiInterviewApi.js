@@ -152,7 +152,7 @@ export const getInterviewSession = async (interviewId, token) => {
 };
 
 // End interview
-export const endInterview = async (interviewId, sessionId, setLoading) => {
+export const endInterview = async (interviewId, sessionId, setLoading, token) => {
   const toastId = toast.loading("Ending interview...");
   setLoading(true);
 
@@ -160,6 +160,8 @@ export const endInterview = async (interviewId, sessionId, setLoading) => {
     const response = await apiConnector(
       "POST",
       `${INTERVIEW_ENDPOINTS.END_INTERVIEW}/${interviewId}/end`,
+      { sessionId },
+      { Authorization: `Bearer ${token}` }
     );
 
     if (response.data.success) {
@@ -176,7 +178,7 @@ export const endInterview = async (interviewId, sessionId, setLoading) => {
 };
 
 // Delete interview
-export const deleteInterview = async (interviewId, setLoading) => {
+export const deleteInterview = async (interviewId, setLoading, token) => {
   const toastId = toast.loading("Deleting interview...");
   setLoading(true);
 
@@ -184,6 +186,8 @@ export const deleteInterview = async (interviewId, setLoading) => {
     const response = await apiConnector(
       "DELETE",
       `${INTERVIEW_ENDPOINTS.DELETE_INTERVIEW}/${interviewId}`,
+      null,
+      { Authorization: `Bearer ${token}` }
     );
 
     if (response.data.success) {

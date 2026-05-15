@@ -20,11 +20,11 @@ router.get("/analytics", protect, getUserAnalytics);
 router.post("/create", authenticate, createInterview);
 router.get("/all", authenticate, getUserInterviews);
 router.get("/:id", authenticate, getInterviewById);
-router.delete("/:id", deleteInterview);
+router.delete("/:id", authenticate, deleteInterview);
 
 // Interview session management
 router.post("/:id/start", authenticate, startInterview);
-router.get("/:id/session", getInterviewSession);
-router.post("/:id/end", endInterview);
+router.get("/:id/session", authenticate, getInterviewSession);
+router.post("/:id/end", authenticate, endInterview);
 
 export default router;

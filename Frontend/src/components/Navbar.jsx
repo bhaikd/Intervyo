@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import logo from "../assets/intervyologo.png";
 
 const NAV_TONES = {
   landing: {

@@ -118,7 +118,7 @@ const InterviewRoom = () => {
     { value: "typescript", label: "TypeScript", icon: "TS" },
   ];
 
-  const SOCKET_URL = "https://intervyo.onrender.com";
+  const SOCKET_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
 
   // ============================================
   // INITIALIZATION

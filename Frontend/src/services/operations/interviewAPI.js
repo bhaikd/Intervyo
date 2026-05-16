@@ -67,52 +67,57 @@ export const createInterview = (interviewConfig, navigate, token) => {
     dispatch(setLoading(true));
 
     try {
-      // Validate config before sending
-      if (
-        !interviewConfig.domain ||
-        !interviewConfig.subDomain ||
-        !interviewConfig.interviewType
-      ) {
-        throw new Error("Please complete all required fields");
-      }
-
-      // Prepare data (exclude resume file from direct JSON)
-      const dataToSend = {
-        domain: interviewConfig.domain,
-        subDomain: interviewConfig.subDomain,
-        interviewType: interviewConfig.interviewType,
-        difficulty: interviewConfig.difficulty,
-        duration: interviewConfig.duration,
-        targetCompany: interviewConfig.targetCompany,
-        customQuestions: interviewConfig.questions, // Send array of questions
+      let dataToSend;
+      let headers = {
+        Authorization: `Bearer ${token}`,
       };
+
+      if (interviewConfig instanceof FormData) {
+        dataToSend = interviewConfig;
+        // Don't set Content-Type, let the browser handle it for FormData
+      } else {
+        // Validate config before sending
+        if (
+          !interviewConfig.domain ||
+          !interviewConfig.subDomain ||
+          !interviewConfig.interviewType
+        ) {
+          throw new Error("Please complete all required fields");
+        }
+
+        // Prepare data
+        dataToSend = {
+          domain: interviewConfig.domain,
+          subDomain: interviewConfig.subDomain,
+          interviewType: interviewConfig.interviewType,
+          difficulty: interviewConfig.difficulty,
+          duration: interviewConfig.duration,
+          targetCompany: interviewConfig.targetCompany,
+          customQuestions: interviewConfig.questions,
+        };
+      }
 
       const response = await apiConnector(
         "POST",
         CREATE_INTERVIEW_API,
         dataToSend,
-        {
-          Authorization: `Bearer ${token}`,
-        },
+        headers,
       );
 
       if (!response.data.success) {
-        throw new Error(response.data.message);
+        throw new Error(response.data.message || "Failed to create interview");
       }
 
       dispatch(setCurrentInterview(response.data.data));
       toast.success("Interview created successfully!");
 
       // Navigate to interview room
-      navigate(`/interview/${response.data.data.id}`);
+      navigate(`/interview/${response.data.data.id || response.data.data.interviewId}`);
     } catch (error) {
       console.error("CREATE_INTERVIEW_API ERROR:", error);
-      toast.error(
-        error.response?.data?.message ||
-          error.message ||
-          "Failed to create interview",
-      );
-      dispatch(setError(error.message));
+      const message = error.response?.data?.message || error.message || "Failed to create interview";
+      toast.error(message);
+      dispatch(setError(message));
     } finally {
       toast.dismiss(toastId);
       dispatch(setLoading(false));

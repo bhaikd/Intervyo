@@ -693,6 +693,10 @@ function calculatePercentile(score) {
 class InterviewController {
   // Create Interview
   async createInterview(req, res) {
+    console.log("Create interview request received");
+    console.log("Body:", req.body);
+    console.log("Files:", req.files ? Object.keys(req.files) : "None");
+
     try {
       const {
         domain,
@@ -703,18 +707,16 @@ class InterviewController {
         targetCompany,
         customQuestions,
       } = req.body;
+
       const userId = req.user.id;
 
-      // Validate required fields
       if (!domain || !subDomain || !interviewType) {
         return res.status(400).json({
           success: false,
-          message:
-            "Missing required fields: domain, subDomain, and interviewType are required",
+          message: "Please provide all required fields (domain, subDomain, interviewType)",
         });
       }
 
-      // Validate interviewType
       const validTypes = [
         "behavioral",
         "technical",
@@ -725,22 +727,21 @@ class InterviewController {
       if (!validTypes.includes(interviewType)) {
         return res.status(400).json({
           success: false,
-          message: `Invalid interview type. Must be one of: ${validTypes.join(
-            ", ",
-          )}`,
+          message: `Invalid interview type. Must be one of: ${validTypes.join(", ")}`,
         });
       }
 
-      // Parse custom questions
       let parsedQuestions = [];
       if (customQuestions) {
-        try {
-          parsedQuestions =
-            typeof customQuestions === "string"
-              ? JSON.parse(customQuestions)
-              : customQuestions;
-        } catch (e) {
-          console.error("Error parsing custom questions:", e);
+        if (Array.isArray(customQuestions)) {
+          parsedQuestions = customQuestions;
+        } else {
+          try {
+            parsedQuestions = JSON.parse(customQuestions);
+          } catch (e) {
+            console.error("Error parsing custom questions:", e);
+            parsedQuestions = [customQuestions]; // Fallback if it's just a single string
+          }
         }
       }
 
@@ -775,7 +776,8 @@ class InterviewController {
         },
       });
     } catch (error) {
-      console.error("Create interview error:", error);
+      console.error("Create interview error stack:", error.stack);
+      console.error("Create interview error details:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create interview",

@@ -12,12 +12,12 @@ const InterviewSchema = new mongoose.Schema({
     subDomain: { type: String, required: true },
     interviewType: {
       type: String,
-      enum: ["behavioral", "technical", "system-design", "coding"],
+      enum: ["behavioral", "technical", "system-design", "coding", "mixed"],
       required: true,
     },
     difficulty: {
       type: String,
-      enum: ["easy", "medium", "hard"],
+      enum: ["easy", "medium", "hard", "expert"],
       default: "medium",
     },
     duration: { type: Number, default: 30 },

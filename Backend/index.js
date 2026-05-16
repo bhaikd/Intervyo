@@ -7,7 +7,6 @@ import dotenv from "dotenv";
 import passport from "./config/Passport.js";
 import authRoutes from "./routes/User.route.js";
 
-import interviewRoutes from "./routes/InterviewRoutes.js";
 import interviewRoute from "./routes/interview.route.js";
 import learningHubRoutes from "./routes/learningHub.routes.js";
 import aiRoutes from "./routes/aiRoutes.js";
@@ -24,7 +23,7 @@ import notificationRoutes from "./routes/notification.route.js";
 import blogRoutes from "./routes/blog.routes.js";
 import profileRoutes from "./routes/Profile.route.js";
 import emotionRoutes from "./routes/emotion.routes.js";
-import analyticsRoutes from "./routes/analytics.routes.js";
+import analyticsRoutes from "./routes/analytics.route.js";
 import newsletterRoutes from "./routes/newsletter.routes.js";
 import contactRoutes from './routes/contact.routes.js';
 import careerRoutes from './routes/career.routes.js';

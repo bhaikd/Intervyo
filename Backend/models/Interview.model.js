@@ -24,6 +24,7 @@ const InterviewSchema = new mongoose.Schema({
     targetCompany: { type: String },
     customQuestions: { type: Boolean, default: false },
   },
+  customQuestionsList: [String],
   status: {
     type: String,
     enum: ["pending", "in-progress", "completed", "abandoned"],

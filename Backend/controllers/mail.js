@@ -46,7 +46,7 @@ const sendGreetingEmail = async (toEmail, userName = "") => {
             </p>
 
             <div style="text-align:center; margin:30px 0;">
-              <a href="http://localhost:5173"
+              <a href="http://intervyo.xyz"
                  style="display:inline-block; background:#ff385c; color:#ffffff;
                         padding:14px 28px; border-radius:30px; font-size:16px;
                         text-decoration:none;">

@@ -1,7 +1,7 @@
 import express from "express";
 import { authenticate } from "../middlewares/auth.js";
 import User from "../models/User.model.js";
-import Interview from "../models/Interview.js";
+import Interview from "../models/Interview.model.js";
 import InterviewSession from "../models/InterviewSession.js";
 import {
   Topic,

@@ -1076,7 +1076,7 @@
 // ============================================
 
 import InterviewSession from "../models/InterviewSession.js";
-import Interview from "../models/Interview.js";
+import Interview from "../models/Interview.model.js";
 import { evaluateAnswer, generateNextQuestion } from "../config/openai.js";
 import { textToSpeech } from "../config/elevenlabs.js";
 import {

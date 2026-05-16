@@ -1,5 +1,4 @@
 import Interview from "../models/Interview.model.js";
-import InterviewLegacy from "../models/Interview.js";
 import InterviewSession from "../models/InterviewSession.js";
 import User from "../models/User.model.js";
 
@@ -20,26 +19,17 @@ export const getUserAnalytics = async (req, res) => {
     const dateFilter = new Date();
     dateFilter.setDate(dateFilter.getDate() - parseInt(timeRange));
 
-    // Get all completed interviews from both models
-    const [interviews1, interviews2] = await Promise.all([
-      Interview.find({
-        userId,
-        status: "completed",
-        completedAt: { $gte: dateFilter },
-      })
-        .sort({ completedAt: -1 })
-        .lean(),
-      InterviewLegacy.find({
-        userId,
-        status: "completed",
-        completedAt: { $gte: dateFilter },
-      })
-        .sort({ completedAt: -1 })
-        .lean(),
-    ]);
+    // Get all completed interviews
+    const interviewsRaw = await Interview.find({
+      userId,
+      status: "completed",
+      completedAt: { $gte: dateFilter },
+    })
+      .sort({ completedAt: -1 })
+      .lean();
 
-    // Merge and normalize interviews
-    const interviews = [...interviews1, ...interviews2].map((i) => ({
+    // Normalize interviews
+    const interviews = interviewsRaw.map((i) => ({
       ...i,
       performance: i.performance || {
         overallScore: i.overallScore || 0,
@@ -171,20 +161,12 @@ export const getSkillRadar = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    const [interviews1, interviews2] = await Promise.all([
-      Interview.find({ userId, status: "completed" })
-        .sort({ completedAt: -1 })
-        .limit(20)
-        .lean(),
-      InterviewLegacy.find({ userId, status: "completed" })
-        .sort({ completedAt: -1 })
-        .limit(20)
-        .lean(),
-    ]);
-
-    const interviews = [...interviews1, ...interviews2]
-      .slice(0, 20)
-      .map((i) => ({
+    const interviewsRaw = await Interview.find({ userId, status: "completed" })
+      .sort({ completedAt: -1 })
+      .limit(20)
+      .lean();
+    
+    const interviews = interviewsRaw.map((i) => ({
         ...i,
         performance: i.performance || {
           overallScore: i.overallScore || 0,

@@ -1,5 +1,5 @@
 import User from "../models/User.model.js";
-import Interview from "../models/Interview.js";
+import Interview from "../models/Interview.model.js";
 
 // ============================================
 // XP CALCULATION ENGINE

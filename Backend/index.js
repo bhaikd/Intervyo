@@ -24,7 +24,7 @@ import notificationRoutes from "./routes/notification.route.js";
 import blogRoutes from "./routes/blog.routes.js";
 import profileRoutes from "./routes/Profile.route.js";
 import emotionRoutes from "./routes/emotion.routes.js";
-import analyticsRoutes from "./routes/analytics.route.js";
+import analyticsRoutes from "./routes/analytics.routes.js";
 import newsletterRoutes from "./routes/newsletter.routes.js";
 import contactRoutes from './routes/contact.routes.js';
 import careerRoutes from './routes/career.routes.js';
@@ -112,8 +112,8 @@ dbConnect();
 
 app.use('/api/contact', contactRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/interviews", interviewRoutes);
 app.use("/api/interview", interviewRoute);
+app.use("/api/interviews", interviewRoute); // Allow plural for compatibility, but use the same route file
 app.use("/api/ai", aiRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/dashboard", dashboardRoutes);

@@ -749,8 +749,8 @@ class InterviewController {
 
         // 1. Parse resume text
         try {
-          if (resumeFile.name.endsWith(".pdf")) {
-            const fileBuffer = fs.readFileSync(resumeFile.tempFilePath);
+          if (/\.pdf$/i.test(resumeFile.name)) {
+            const fileBuffer = await fs.promises.readFile(resumeFile.tempFilePath);
             const pdfData = await pdfParse(fileBuffer);
             resumeText = pdfData.text;
           } else {
